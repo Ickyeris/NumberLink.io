@@ -2,15 +2,18 @@ const express = require('express');
 const bcrypt = require('bcrypt')
 
 const pool = require('./config/db');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 
 async function hashedPassword(password) {
-  const saltRounds = 10;
+  const saltRounds = 12;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  return hashPassword;
+  return hashedPassword;
 }
 
 
@@ -20,7 +23,7 @@ app.get('/api/data', (req, res) => {
 
 app.get('/api/users', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM tab1');
+      const result = await pool.query('SELECT * FROM users');
       res.json(result.rows);
     } catch (err) {
       console.error(err.message);
@@ -40,5 +43,35 @@ app.post('/register', async(req, res) => {
   }
 });
 
+app.post('/api/login', async(req, res) => {
+  const { username, password } = req.body;
+  try {
+    // Find user matching the given username
+    const result = await pool.query(`SELECT * FROM users WHERE username=$1`, [username]);
+    if (result.rows.length === 0){
+      return res.status(404).send({message:'User not found!'});
+    }
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+    const user = result.rows[0];
+
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).send({message:'Invalid username or password!'})
+    }
+
+    // Login succeeded, return user information
+    res.status(200).json({
+      message: 'Login successfull',
+      user: {
+        username: user.username
+      }
+    })
+  }
+  catch (error) {
+    res.status(500).send('User login failed')
+  }
+});
+
+
+app.listen(5001, () => console.log('Server running on port 5001'));

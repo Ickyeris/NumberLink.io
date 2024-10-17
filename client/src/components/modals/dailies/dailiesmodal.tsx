@@ -4,6 +4,7 @@ import { useSpring, animated } from 'react-spring'
 type DailiesModalProps = {
     isOpen: boolean
     close: CallableFunction
+    mobile: boolean
 }
 
 const DailiesModal = (props: DailiesModalProps) => {
@@ -17,12 +18,21 @@ const DailiesModal = (props: DailiesModalProps) => {
         <div
             className={`fixed w-screen h-screen flex justify-start items-center pointer-events-none`}
         >
+            {
+            // A small menu for non-mobile
+            !props.mobile && 
             <animated.div
                 className="w-full h-full max-w-250 bg-white"
                 style={springProps}
             ></animated.div>
+            }  
+
+            {/* Full screen menu for mobile */}
+
+
+
         </div>
     )
 }
 
-export default DailiesModal
+export default DailiesModal;

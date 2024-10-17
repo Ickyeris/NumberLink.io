@@ -6,16 +6,12 @@ import Board from '../../components/board/board'
 
 const MainPage = () => {
     const mainRef = useRef<HTMLDivElement>(null)
-    const centerRef = useRef<HTMLDivElement>(null)
     const [size, setSize] = useState({
         width: 0,
         height: 0,
     })
 
-    const [size2, setSize2] = useState({
-        width: 0,
-        height: 0,
-    })
+    const mobile = size.width < 1000.0;
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,14 +20,6 @@ const MainPage = () => {
                 setSize({
                     width: bounds.width,
                     height: bounds.height,
-                })
-            }
-
-            const bounds2 = centerRef.current?.getBoundingClientRect()
-            if (bounds2) {
-                setSize2({
-                    width: bounds2.width,
-                    height: bounds2.height,
                 })
             }
         }
@@ -47,11 +35,19 @@ const MainPage = () => {
             ref={mainRef}
             className="flex flex-col w-screen h-screen justify-start items-center"
         >
-            <Navbar screenWidth={size.width}/>
+            <Navbar mobile={mobile} />
             <div className="w-full flex-1 bg-black flex justify-center items-center p-4">
-                <div className="w-full max-w-500 h-auto bg-blue-800">
-                    <div className="aspect-square width-full bg-white">
-                        <Board/>
+                <div className="w-full max-w-750 h-auto  flex flex-col">
+                    {/* Aspect ratio adjusting board container */}
+                    <div className="width-full" style={{ aspectRatio: 1 / 1 }}>
+                        <Board />
+                    </div>
+
+                    {/* Score container*/}
+                    <div className="flex flex-row justify-center">
+                        <h1>Hello</h1>
+                        <h1>Hello</h1>
+                        <h1>Hello</h1>
                     </div>
                 </div>
             </div>

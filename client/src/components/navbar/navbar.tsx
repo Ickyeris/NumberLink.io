@@ -2,40 +2,39 @@ import React, { useState } from 'react'
 import LoginModal from '../modals/login/loginmodal'
 import '../../output.css'
 
-
-import {LoginIcon, MenuIcon} from '../icons/icons'
+import { LoginIcon, MenuIcon } from '../icons/icons'
 import DailiesModal from '../modals/dailies/dailiesmodal'
 
-
 type NavbarProps = {
-    screenWidth: number
+    mobile: boolean
 }
 
 const Navbar = (props: NavbarProps) => {
     const [username, setUsername] = useState('')
     const [menuOpened, setMenuOpened] = useState('')
 
-
-
     const closeMenu = () => {
-        setMenuOpened('');
+        setMenuOpened('')
     }
 
     return (
-        <div className="w-full h-auto flex flex-row justify-center bg-blue-500 ">
+        <div className="w-full h-auto flex flex-row justify-center bg-black ">
             {
                 /* Black background that can be clicked on to remove menu*/
-                menuOpened &&
-                <div
-                className='fixed bg-black w-full h-full opacity-50'
-                onClick={() => setMenuOpened('')}
-                >
-                </div>
-            
+                menuOpened && (
+                    <div
+                        className="fixed bg-black w-full h-full opacity-50"
+                        onClick={() => setMenuOpened('')}
+                    ></div>
+                )
             }
 
-            <LoginModal isOpen={menuOpened == "login"} onClose={closeMenu}/>
-            <DailiesModal isOpen={menuOpened == "dailies"} close={closeMenu}/>
+            <LoginModal isOpen={menuOpened == 'login'} onClose={closeMenu} />
+            <DailiesModal
+                isOpen={menuOpened == 'dailies'}
+                close={closeMenu}
+                mobile={props.mobile}
+            />
 
             <div className="flex flex-row w-full h-16 p-1 text-white">
                 {/* Menu Container */}
@@ -43,7 +42,7 @@ const Navbar = (props: NavbarProps) => {
                     className="w-2/5 flex justify-start  "
                     onClick={() => setMenuOpened('dailies')}
                 >
-                    <MenuIcon/>
+                    <MenuIcon />
                 </button>
 
                 {/* Title */}
@@ -52,29 +51,27 @@ const Navbar = (props: NavbarProps) => {
                         <h1 className="text-4xl ">Numberlink.io</h1>
                     </button>
                 </div>
-                
+
                 {/* Login Container */}
                 <div className="w-2/5 flex justify-end text-white ">
-                    {
-                        props.screenWidth >= 1000 &&
-                        <div className='w-full h-full flex justify-end items-end'>
-                            <div className='m-2'>Username:_________</div>
-                            <div className='m-2'>Password:_________</div>
-                            <div className='flex flex-col m-2'>
+                    {!props.mobile && (
+                        <div className="w-full h-full flex justify-end items-end">
+                            <div className="m-2">Username:_________</div>
+                            <div className="m-2">Password:_________</div>
+                            <div className="flex flex-col m-2">
                                 <button>Login</button>
                                 <button>Register</button>
                             </div>
                         </div>
-                    }
-                    {
-                        props.screenWidth < 1000 &&
+                    )}
+                    {props.mobile && (
                         <button
-                        className="h-full aspect-square "
-                        onClick={() => setMenuOpened("login")}
+                            className="h-full aspect-square "
+                            onClick={() => setMenuOpened('login')}
                         >
-                            <LoginIcon/>
+                            <LoginIcon />
                         </button>
-                    }
+                    )}
                 </div>
             </div>
         </div>

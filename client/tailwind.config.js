@@ -24,6 +24,7 @@ export default {
       maxWidth: {
         '95vh': '95vh',
         '500': '500px',
+        '250': '250px',
       }
     },
   },

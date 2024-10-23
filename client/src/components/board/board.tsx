@@ -2,55 +2,98 @@ import React, { useState, useEffect, useRef } from 'react'
 
 const Board = () => {
     const boardRef = useRef<HTMLDivElement>(null)
-    const [gridBoardData, setBoardData] = useState<number[]>([])
 
-    const [hovering, setHovering] = useState({
+    const [pointerPosition, setPointerPosition] = useState({
         x: -1,
         y: -1,
     })
 
-    const [size, setSize] = useState({
-        width: 8,
-        height: 8,
+    // The size of the entire board
+    const [boardSize, setBoardSize] = useState({
+        width: 100,
+        height: 100,
     })
 
-    const getCellData = (x: number, y: number) => {
-        return gridBoardData[x * size.width + y]
+    // The amount of columns and rowos of this board
+    const [rows, setRows] = useState(8)
+    const [columns, setColumns] = useState(8)
+    const [data, setData] = useState<number[]>(new Array(rows * columns).fill(0))
+
+
+
+
+    // The size of an individual cell.
+    const cellSize = {
+        width: boardSize.width / columns,
+        height: boardSize.height / rows,
     }
 
-    const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-        const bounds = boardRef.current?.getBoundingClientRect()
-        if (bounds) {
-            const x = event.clientX - bounds.left
-            const y = event.clientY - bounds.top
-            setHovering({
-                x,
-                y,
-            })
+    // Handle resize logic
+    useEffect(() => {
+        const onBoardResize = () => {
+            const bounds = boardRef.current?.getBoundingClientRect()
+            if (bounds) {
+                setBoardSize({
+                    width: bounds.width,
+                    height: bounds.height,
+                })
+            }
         }
-    }
+        
+        // Initial setup of board size
+        onBoardResize();
+
+        window.addEventListener('resize', onBoardResize)
+        return () => {
+            window.removeEventListener('resize', onBoardResize)
+        }
+    }, [boardRef])
+
+    // Handle pointer
+    useEffect(() => {
+        // Record the current cell coordinate the pointer is over.
+        const onPointerMove = (event: PointerEvent) => {
+            const bounds = boardRef.current?.getBoundingClientRect()
+            if (bounds) {
+                const x = Math.floor((event.clientX - bounds.left) / boardSize.width * columns)
+                const y = Math.floor((event.clientY - bounds.top) / boardSize.height * rows)
+                setPointerPosition({ x, y })
+            }
+        }
+
+        window.addEventListener('pointermove', onPointerMove)
+        return () => {
+            window.removeEventListener('pointermove', onPointerMove)
+        }
+    }, [boardSize])
+
+    // Adjust data size depending on columns and rows
+    useEffect(() => {
+        const newData = new Array(rows * columns).fill(0)
+        setData(newData)
+    }, [rows, columns])
+
 
     return (
         <div
             ref={boardRef}
             className="w-full h-full bg-red-200 flex-col border-white border-2 box-border"
-            onPointerMove={onPointerMove}
         >
             {
                 // Grid
-                Array.from({ length: size.height }).map((_, y) => (
+                Array.from({ length: rows }).map((_, y) => (
                     <div
                         key={y}
                         className="w-full flex flex-row pointer-events-none"
-                        style={{ height: `${100 / size.height}%` }}
+                        style={{ height: `${100 / rows}%` }}
                     >
-                        {Array.from({ length: size.width }).map((_, x) => (
+                        {Array.from({ length: columns }).map((_, x) => (
                             // Grid Cells
                             <div
-                                key={x * size.width + y}
+                                key={x * columns + y}
                                 className="h-full border-white box-border border-2 bg-black pointer-events-none"
                                 style={{
-                                    width: `${100 / size.width}%`,
+                                    width: `${100 / columns}%`,
                                 }}
                             />
                         ))}

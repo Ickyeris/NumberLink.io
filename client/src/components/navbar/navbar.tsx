@@ -56,8 +56,8 @@ const Navbar = (props: NavbarProps) => {
                 <div className="w-2/5 flex justify-end text-white ">
                     {!props.mobile && (
                         <div className="w-full h-full flex justify-end items-end">
-                            <div className="m-2">Username:_________</div>
-                            <div className="m-2">Password:_________</div>
+                            <div className="m-2">Username:</div>
+                            <div className="m-2">Password:</div>
                             <div className="flex flex-col m-2">
                                 <button>Login</button>
                                 <button>Register</button>

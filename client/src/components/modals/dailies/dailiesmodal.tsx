@@ -14,22 +14,30 @@ const DailiesModal = (props: DailiesModalProps) => {
         config: { tension: 200, friction: 30 },
     })
 
+
+
+    const [puzzles, setPuzzles] = useState({
+        "Easy 2x2": "easy2x2"
+    });
+
+
     return (
         <div
             className={`fixed w-screen h-screen flex justify-start items-center pointer-events-none`}
         >
             {
-            // A small menu for non-mobile
-            !props.mobile && 
+            // Web
+            !props.mobile ?
             <animated.div
                 className="w-full h-full max-w-250 bg-white"
                 style={springProps}
             ></animated.div>
+            :
+            // Mobile
+            <div>
+
+            </div>
             }  
-
-            {/* Full screen menu for mobile */}
-
-
 
         </div>
     )

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'TitleFont';
+    src: url('./assets/fonts/easter.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -15,8 +15,8 @@ const Board = () => {
     })
 
     // The amount of columns and rowos of this board
-    const [rows, setRows] = useState(8)
-    const [columns, setColumns] = useState(8)
+    const [rows, setRows] = useState(6)
+    const [columns, setColumns] = useState(6)
     const [data, setData] = useState<number[]>(new Array(rows * columns).fill(0))
 
 
@@ -77,7 +77,7 @@ const Board = () => {
     return (
         <div
             ref={boardRef}
-            className="w-full h-full bg-red-200 flex-col border-white border-2 box-border"
+            className="w-full h-full  flex-col border-black border-2 box-border"
         >
             {
                 // Grid
@@ -91,7 +91,7 @@ const Board = () => {
                             // Grid Cells
                             <div
                                 key={x * columns + y}
-                                className="h-full border-white box-border border-2 bg-black pointer-events-none"
+                                className="h-full border-black box-border border-2 bg-white pointer-events-none"
                                 style={{
                                     width: `${100 / columns}%`,
                                 }}

@@ -1,78 +1,49 @@
 import React, { useState } from 'react'
 import LoginModal from '../modals/login/loginmodal'
-import '../../output.css'
 
 import { LoginIcon, MenuIcon } from '../icons/icons'
-import DailiesModal from '../modals/dailies/dailiesmodal'
+import { FaBars } from 'react-icons/fa'
+import { IoTrophyOutline } from 'react-icons/io5'
+import { MdAccountBox, MdStart } from "react-icons/md";
+import { RiPuzzleLine } from "react-icons/ri";
 
-type NavbarProps = {
-    mobile: boolean
-}
+const Navbar = () => {
+    const [menuOpened, setMenuOpened] = useState(false)
 
-const Navbar = (props: NavbarProps) => {
-    const [username, setUsername] = useState('')
-    const [menuOpened, setMenuOpened] = useState('')
-
-    const closeMenu = () => {
-        setMenuOpened('')
+    const toggleMenu = () => {
+        setMenuOpened(!menuOpened)
     }
 
     return (
-        <div className="w-full h-auto flex flex-row justify-center bg-black ">
-            {
-                /* Black background that can be clicked on to remove menu*/
-                menuOpened && (
-                    <div
-                        className="fixed bg-black w-full h-full opacity-50"
-                        onClick={() => setMenuOpened('')}
-                    ></div>
-                )
-            }
-
-            <LoginModal isOpen={menuOpened == 'login'} onClose={closeMenu} />
-            <DailiesModal
-                isOpen={menuOpened == 'dailies'}
-                close={closeMenu}
-                mobile={props.mobile}
-            />
-
-            <div className="flex flex-row w-full h-16 p-1 text-white">
-                {/* Menu Container */}
-                <button
-                    className="w-2/5 flex justify-start  "
-                    onClick={() => setMenuOpened('dailies')}
-                >
-                    <MenuIcon />
+        <div className="w-full h-auto flex flex-row justify-start bg-white">
+            {/*Right Container*/}
+            <div className="w-1/4 flex ">
+                <button className="h-full w-auto text-black p-2">
+                    <FaBars
+                        className={`h-full w-auto ${menuOpened ? 'scale-90 opacity-75' : ''}`}
+                    ></FaBars>
                 </button>
-
-                {/* Title */}
-                <div className="flex-1 flex justify-center items-center text-white">
-                    <button>
-                        <h1 className="text-4xl ">Numberlink.io</h1>
+            </div>
+            {/*Center Container*/}
+            <div className="flex w-1/2 justify-center">
+                <button>
+                    <p className="font-titleFont text-6xl text-black p-2">
+                        Numberlink.io
+                    </p>
+                </button>
+            </div>
+            {/*Right Container*/}
+            <div className="flex w-1/4 justify-end">
+                <span className="w-full h-full flex flex-row justify-end items-center text-5xl">
+                    <button className="font-titleFont text-black p-2 flex flex-row">
+                        <IoTrophyOutline/>
+                        <h1 className="hidden xl:block">Leaderboards</h1>
                     </button>
-                </div>
-
-                {/* Login Container */}
-                <div className="w-2/5 flex justify-end text-white ">
-                    {!props.mobile && (
-                        <div className="w-full h-full flex justify-end items-end">
-                            <div className="m-2">Username:</div>
-                            <div className="m-2">Password:</div>
-                            <div className="flex flex-col m-2">
-                                <button>Login</button>
-                                <button>Register</button>
-                            </div>
-                        </div>
-                    )}
-                    {props.mobile && (
-                        <button
-                            className="h-full aspect-square "
-                            onClick={() => setMenuOpened('login')}
-                        >
-                            <LoginIcon />
-                        </button>
-                    )}
-                </div>
+                    <button className="font-titleFont text-black p-2 flex flex-row">
+                        <MdAccountBox/>
+                        <h1 className="hidden xl:block">Account</h1>
+                    </button>
+                </span>
             </div>
         </div>
     )

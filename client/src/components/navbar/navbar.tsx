@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import LoginModal from '../modals/login/loginmodal'
-
-import { LoginIcon, MenuIcon } from '../icons/icons'
+import { useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa'
 import { IoTrophyOutline } from 'react-icons/io5'
 import { MdAccountBox, MdStart } from "react-icons/md";
-import { RiPuzzleLine } from "react-icons/ri";
-
 const Navbar = () => {
+    const navigate = useNavigate();
     const [menuOpened, setMenuOpened] = useState(false)
 
     const toggleMenu = () => {
         setMenuOpened(!menuOpened)
+    }
+
+    const handleTitleClick = () => {
+        return navigate('/');
     }
 
     return (
@@ -26,7 +27,9 @@ const Navbar = () => {
             </div>
             {/*Center Container*/}
             <div className="flex w-1/2 justify-center">
-                <button>
+                <button
+                onClick={handleTitleClick}
+                >
                     <p className="font-titleFont text-6xl text-black p-2">
                         Numberlink.io
                     </p>

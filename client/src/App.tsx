@@ -5,13 +5,15 @@ import './App.css'
 import DailiesPage from './pages/DailiesPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Navbar from './components/navbar/navbar';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
     <div className='w-screen h-screen bg-white flex flex-col'>
-      <Navbar/>
       <Router>
+        <Navbar/>
         <Routes>
+          <Route path='/' element={<MainPage/>}/>
           <Route path='/not-found' element={<NotFoundPage/>}/>
           <Route path='/dailies/:difficulty/:size' element={<DailiesPage/>}/>
         </Routes>

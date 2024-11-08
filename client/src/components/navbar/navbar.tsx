@@ -39,7 +39,7 @@ const Navbar = () => {
             <div className="flex w-1/4 justify-end">
                 <span className="w-full h-full flex flex-row justify-end items-center text-5xl">
                     <button className="font-titleFont text-black p-2 flex flex-row">
-                        <IoTrophyOutline/>
+                        <IoTrophyOutline className="hidden md:block"/>
                         <h1 className="hidden xl:block">Leaderboards</h1>
                     </button>
                     <button className="font-titleFont text-black p-2 flex flex-row">

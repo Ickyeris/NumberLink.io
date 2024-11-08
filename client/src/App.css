@@ -562,12 +562,28 @@ video {
   position: fixed;
 }
 
+.right-0 {
+  right: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
 .m-2 {
   margin: 0.5rem;
 }
 
 .m-4 {
   margin: 1rem;
+}
+
+.m-1 {
+  margin: 0.25rem;
 }
 
 .mr-4 {
@@ -603,6 +619,10 @@ video {
   height: 100px;
 }
 
+.h-500 {
+  height: 500px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -613,14 +633,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-600 {
-  height: 600px;
-}
-
-.h-500 {
-  height: 500px;
 }
 
 .w-1\/2 {
@@ -655,6 +667,10 @@ video {
   width: 100vw;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -679,10 +695,6 @@ video {
 
 .flex-col {
   flex-direction: column;
-}
-
-.items-start {
-  align-items: flex-start;
 }
 
 .items-center {
@@ -721,6 +733,10 @@ video {
   border-bottom-width: 2px;
 }
 
+.border-b-0 {
+  border-bottom-width: 0px;
+}
+
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -731,11 +747,6 @@ video {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .bg-blue-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
@@ -744,11 +755,6 @@ video {
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
-}
-
-.bg-red-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
 
 .bg-transparent {
@@ -773,6 +779,18 @@ video {
   padding: 1rem;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .font-titleFont {
   font-family: TitleFont, sans-serif;
 }
@@ -790,6 +808,21 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .text-black {
@@ -839,12 +872,16 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:h-600 {
-    height: 600px;
+  .md\:block {
+    display: block;
   }
 
-  .md\:h-500 {
-    height: 500px;
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:h-600 {
+    height: 600px;
   }
 
   .md\:w-auto {

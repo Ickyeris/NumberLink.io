@@ -9,3 +9,9 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@media (max-height: 750px) {
+    .vh-small\:justify-start {
+        justify-content: flex-start;
+    }
+}

@@ -9,7 +9,7 @@ const MainPage = () => {
     }
 
     return (
-        <div className="w-full h-full  flex flex-col justify-center items-center">
+        <div className="w-full h-full  flex flex-col vh-small:justify-start justify-center items-center">
             <div className="h-500 aspect-square flex flex-col justify-center items-center">
                 <button
                     className="font-titleFont text-black p-2 flex flex-row text-6xl"

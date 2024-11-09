@@ -1,2 +1,2 @@
 # Numberlink.io
-[In-developement]
+[In-development]

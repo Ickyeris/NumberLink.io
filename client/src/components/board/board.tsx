@@ -3,10 +3,11 @@ import React, { useState, useEffect, useRef } from 'react'
 const Board = () => {
     const boardRef = useRef<HTMLDivElement>(null)
 
-    const [pointerPosition, setPointerPosition] = useState({
-        x: -1,
-        y: -1,
-    })
+
+    const colors = {
+        "selected": "black",
+        "default": "white"
+    }
 
     // The size of the entire board
     const [boardSize, setBoardSize] = useState({
@@ -17,16 +18,21 @@ const Board = () => {
     // The amount of columns and rowos of this board
     const [rows, setRows] = useState(6)
     const [columns, setColumns] = useState(6)
-    const [data, setData] = useState<number[]>(new Array(rows * columns).fill(0))
-
-
-
 
     // The size of an individual cell.
     const cellSize = {
         width: boardSize.width / columns,
         height: boardSize.height / rows,
     }
+
+    const [pointerPosition, setPointerPosition] = useState({
+        x: -1,
+        y: -1,
+    })
+
+    const [data, setData] = useState<number[]>(new Array(rows * columns).fill(0))
+
+    const [paths, setPaths] = useState([]);
 
     // Handle resize logic
     useEffect(() => {
@@ -58,6 +64,7 @@ const Board = () => {
                 const x = Math.floor((event.clientX - bounds.left) / boardSize.width * columns)
                 const y = Math.floor((event.clientY - bounds.top) / boardSize.height * rows)
                 setPointerPosition({ x, y })
+                console.log(x, y);
             }
         }
 
@@ -74,32 +81,37 @@ const Board = () => {
     }, [rows, columns])
 
 
+    const Grid = () => {
+        return (
+            Array.from({ length: rows }).map((_, y) => (
+                <div
+                    key={y}
+                    className="w-full flex flex-row pointer-events-none"
+                    style={{ height: `${100 / rows}%` }}
+                >
+                    {Array.from({ length: columns }).map((_, x) => (
+                        // Grid Cells
+                        <div
+                            key={x * columns + y}
+                            className="h-full border-black box-border border-2 pointer-events-none"
+                            style={{
+                                width: `${100 / columns}%`,
+                                backgroundColor: (pointerPosition.x == x && pointerPosition.y == y) ? "red" : "white"
+                            }}
+                        />
+                    ))}
+                </div>
+            ))
+        )
+    }
+
+
     return (
         <div
             ref={boardRef}
-            className="w-full h-full  flex-col border-black border-2 box-border"
+            className="w-full h-full flex-col border-black border-2 box-border"
         >
-            {
-                // Grid
-                Array.from({ length: rows }).map((_, y) => (
-                    <div
-                        key={y}
-                        className="w-full flex flex-row pointer-events-none"
-                        style={{ height: `${100 / rows}%` }}
-                    >
-                        {Array.from({ length: columns }).map((_, x) => (
-                            // Grid Cells
-                            <div
-                                key={x * columns + y}
-                                className="h-full border-black box-border border-2 bg-white pointer-events-none"
-                                style={{
-                                    width: `${100 / columns}%`,
-                                }}
-                            />
-                        ))}
-                    </div>
-                ))
-            }
+            <Grid/>
         </div>
     )
 }

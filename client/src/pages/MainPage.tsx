@@ -5,7 +5,7 @@ const MainPage = () => {
     const navigate = useNavigate()
 
     const handleEasyClick = () => {
-        navigate('/dailies/easy/5x5')
+        navigate('/game/easy/5x5')
     }
 
     return (
@@ -15,22 +15,12 @@ const MainPage = () => {
                     className="font-titleFont text-black p-2 flex flex-row text-6xl"
                     onClick={handleEasyClick}
                 >
-                    Easy
-                </button>
-                <button className="font-titleFont text-black p-2 flex flex-row text-6xl">
-                    Medium
-                </button>
-                <button className="font-titleFont text-black p-2 flex flex-row text-6xl">
-                    Hard
-                </button>
-                <button className="font-titleFont text-black p-2 flex flex-row text-6xl">
-                    0/5
+                    Play
                 </button>
             </div>
             <button className="hidden md:block fixed right-0 bottom-0 font-titleFont text-black p-4 text-6xl">
                 Daily Streak: 100
             </button>   
-            <Updates/>
         </div>
     )
 }
